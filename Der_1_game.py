@@ -1,116 +1,55 @@
 # simple sympy
 import sympy
-import random
 import math
+import random
+from sympy.parsing.sympy_parser import parse_expr
+from DER_Classes import Degree_2_gen, Degree_1_gen
+
 
 x = sympy.symbols('x')
 y = sympy.symbols('y')
 z = sympy.symbols('z')
 
-def Low_Any_Eq():
-    n = random.randint(1,5)
-    coefX= n*x
-    simpleDegree1 = coefX + random.randint(1,10)
-    expr = sympy.Eq(simpleDegree1, random.randint(1,10))
-    return expr
+def DerANWSER(questionType):
+    print("#################")
+    print("Solve")
+    expr = questionType
+    # print(expr)
+    print(sympy.latex(expr))
+    # print(sympy.solvers.solve(expr))
+    ANS = sympy.diff(expr, x)
+    ANS_List = {ANS}
+    User = input()
+    List = {User}
+    User_A = parse_expr(User)
+    if User_A == ANS:
+        print("correct")
+    else:
+        print("incorrect")
+        print(ANS)
+    print("---------------")
+    print()
 
-
-def High_Any_Eq():
-    n = random.randint(5,10)
-    HcoefX = n*x
-    HardDegree1 = HcoefX + random.randint(1,30)
-    expr = sympy.Eq(HardDegree1, random.randint(1,30))
-    return expr
-
-def HardDegree1Eq2():
-    expr = sympy.Eq(sympy.Add(HardDegree1(),HardDegree1(), evaluate=False) , random.randint(1,30))
-    return expr
-
-def Unsimplfied_LOW_ANY():
-    n = random.randint(1,5)
-    coefX= n*x
-    simpleDegree1 = coefX + random.randint(1,10)
-
-    G = random.randint(1,5)
-    GcoefX= G*x
-    GsimpleDegree1 = GcoefX + random.randint(1,10)
-    
-    expr = sympy.Eq(simpleDegree1, GsimpleDegree1)
-    return expr
-
-def Unsimplfied_HIGH_ANY():
-    n = random.randint(5,10)
-    HcoefX = n*x
-    HardDegree1 = HcoefX + random.randint(1,20)
-    
-    G = random.randint(5,10)
-    GHcoefX = G*x
-    GHardDegree1 = GHcoefX + random.randint(1,20)
-    
-    expr = sympy.Eq(HardDegree1,GHardDegree1)
-    return expr
-
-def Low_Whole_Eq():
-    #Ax + B = C
-    n = random.randint(1,5)
-    r = random.randint(1,5)
-    coefX = n*x
-    B = random.randint(1,10)
-    simpleDegree1 = coefX + B
-    C = B + n*r
-    expr = sympy.Eq(simpleDegree1, C)
-    return expr
-
-def High_Whole_Eq():
-    #Ax + B = C
-    n = random.randint(5,10)
-    r = random.randint(1,10)
-    coefX = n*x
-    B = random.randint(1,20)
-    simpleDegree1 = coefX + B
-    C = B + n*r
-    expr = sympy.Eq(simpleDegree1, C)
-    return expr
-
-def Unsimplified_High_whole():
-    #(n-r)x - rando = (n-r)rando - rando
-    n = random.randint(9,16)
-    r = random.randint(1,8)
-    coefX = n*x
-    HcoefX = r*x
-    B = (n-r)*random.randint(1,10)
-    C = random.randint(1,5)
-    Right = coefX + C
-    Left = HcoefX + C + B
-    expr = sympy.Eq(Right, Left)
-    return expr
-    
-def Unsimplified_Low_whole():
-    #(n-r)x - rando = (n-r)rando - rando
-    n = random.randint(4,6)
-    r = random.randint(1,3)
-    coefX = n*x
-    HcoefX = r*x
-    B = (n-r)*random.randint(1,4)
-    C = random.randint(1,5)
-    Right = coefX + C
-    Left = HcoefX + C + B
-    expr = sympy.Eq(Right, Left)
-    return expr
-
-def Simple_DEGREE2():
-    n = random.randint(1,5)
-    coefX= x*x
-    simpleDegree1 = coefX
-    expr = sympy.Eq(simpleDegree1, n*n)
-    return expr
-
-def UNSimple_DEGREE2():
-    n = random.randint(1,5)
-    coefX= n*x*x
-    simpleDegree1 = coefX + random.randint(1,5)
-    expr = sympy.Eq(simpleDegree1, random.randint(6,10))
-    return expr
+def InteANSWER(questionType):
+    print("#################")
+    print("Solve")
+    expr = questionType
+    # print(expr)
+    print(sympy.latex(expr))
+    # print(sympy.solvers.solve(expr))
+    ANS = sympy.integrate(expr, x)
+    ANS_List = {ANS}
+    User = input()
+    List = {User}
+    User_A = parse_expr(User)
+    if User_A == ANS:
+        print("correct")
+    else:
+        print("incorrect")
+        print(sympy.latex(ANS))
+        print(ANS)
+    print("---------------")
+    print()
 
 def ANSWER(questionType):
     print("#################")
@@ -153,29 +92,44 @@ def MENUMODE(questionType):
     expr = questionType
     print(sympy.latex(expr))
     ANS = sympy.solveset(expr)
-    print("1 is add, 2 is subtract, 3 is add multiples of X, and 4 is subtract multiples of X, 5 and 6 are divide and multiply, and 7 is to solve")
-    CHOICE = int(input())
-    if CHOICE == 1:
-        n = ADD(expr)
-        MENUMODE(n)
-    elif CHOICE == 2:
-        n = SUBTRACT(expr)
-        MENUMODE(n)
-    elif CHOICE == 3:
-        n = ADDX(expr)
-        MENUMODE(n)
-    elif CHOICE == 4:
-        n = SUBTRACTX(expr)
-        MENUMODE(n)
-    elif CHOICE == 5:
-        n = Divide(expr)
-        MENUMODE(n)
-    elif CHOICE == 6:
-        n = Multiply(expr)
-        MENUMODE(n)
-    elif CHOICE == 7:
-        ANSWER(expr)
-    
+    print("choose option 1 to use basic math operations")
+    print("choose option 2 to answer question")
+    CO = int(input())
+    if CO == 1:
+        print("1 is add, 2 is subtract, 3 is add multiples of X, and 4 is subtract multiples of X and 5 and 6 are divide and multiply")
+        CHOICE = int(input())
+        if CHOICE == 1:
+            n = ADD(expr)
+            MENUMODE(n)
+        elif CHOICE == 2:
+            n = SUBTRACT(expr)
+            MENUMODE(n)
+        elif CHOICE == 3:
+            n = ADDX(expr)
+            MENUMODE(n)
+        elif CHOICE == 4:
+            n = SUBTRACTX(expr)
+            MENUMODE(n)
+        elif CHOICE == 5:
+            n = Divide(expr)
+            MENUMODE(n)
+        elif CHOICE == 6:
+            n = Multiply(expr)
+            MENUMODE(n)
+    if CO == 2:
+        print("1 is to solve degree 1, 2 is degree 2, 3 is derivative solve and 4 is integration solve")
+        C2 = int(input())
+        if C2 == 1:
+            ANSWER(expr)
+        elif C2 == 2:
+            ANSWER2(expr)
+        elif C2 == 3:
+            DerANWSER(expr)
+        elif C2 == 4:
+            InteANSWER(expr)
+
+
+
         
 def ADD(expr):
     print("How much do you want to add")
@@ -224,7 +178,7 @@ def Divide(expr):
 
 def GenQuestion():
     print("type in 0 for first option and 1 for second")
-    print("degree 1 or 2 question or menumode is option 2")
+    print("degree 1 or 2 question or derivative is 2 or 3 is integration")
     d = int(input("Choose an option"))
     if d == 0:
         print("simplified or unsimplified")
@@ -257,53 +211,106 @@ def GenQuestion():
         elif d2 == 1:
             x = 10
     elif d == 2:
-        x = 11
-        
+        print("degree 1 or 2")
+        DER_Q = int(input("Choose an option"))
+        if DER_Q == 0:
+            x = 11
+        elif DER_Q == 1:
+            x = 12
+    elif d == 3:
+        print("degree 1 or 2")
+        INTE_Q = int(input("Choose an option"))
+        if INTE_Q == 0:
+            x = 13
+        elif INTE_Q == 1:
+            x = 14
+
     return x
-def main():
-    
+def main(n):
+    test = Degree_1_gen()
+    test2 = Degree_2_gen()
+
     flag = GenQuestion()
     if flag == 0:
         print("NO QUESTION")
     if flag == 1:
-        for i in range(5):
-            ANSWER(Low_Any_Eq())
+        for i in range(n):
+            MENUMODE(test.Low_Any_Eq())
     elif flag == 2:
-        for i in range(5):
-            ANSWER(High_Any_Eq())
+        for i in range(n):
+            MENUMODE(test.High_Any_Eq())
     elif flag == 3:
-        for i in range(5):
-            ANSWER(Low_Whole_Eq())
+        for i in range(n):
+            MENUMODE(test.Low_Whole_Eq())
     elif flag == 4:
-        for i in range(5):
-            ANSWER(High_Whole_Eq())
+        for i in range(n):
+            MENUMODE(test.High_Whole_Eq())
     elif flag == 5:
-        for i in range(5):
-            ANSWER(Unsimplfied_LOW_ANY())
+        for i in range(n):
+            MENUMODE(test.Unsimplfied_LOW_ANY())
     elif flag == 6:
-        for i in range(5):
-            ANSWER(Unsimplfied_HIGH_ANY())
+        for i in range(n):
+            MENUMODE(test.Unsimplfied_HIGH_ANY())
     elif flag == 7:
-        for i in range(5):
-            ANSWER(Unsimplified_Low_whole())
+        for i in range(n):
+            MENUMODE(test.Unsimplified_Low_whole())
     elif flag == 8:
-        for i in range(5):
-            ANSWER(Unsimplified_High_whole())
+        for i in range(n):
+            MENUMODE(test.Unsimplified_High_whole())
     elif flag == 9:
-        for i in range(5):
-            ANSWER2(Simple_DEGREE2())
+        for i in range(n):
+            MENUMODE(test2.Simple_DEGREE2())
     elif flag == 10:
-        for i in range(5):
-            ANSWER2(UNSimple_DEGREE2())
+        for i in range(n):
+            MENUMODE(test2.UNSimple_DEGREE2())
     elif flag == 11:
-        for i in range(5):
-            MENUMODE(Unsimplified_Low_whole())
+        for i in range(n):
+            MENUMODE(test.Derivative_LOW_ANY())
+    elif flag == 12:
+        for i in range(n):
+            MENUMODE(test2.Derivative_2nd())
+    elif flag == 13:
+        for i in range(n):
+            MENUMODE(test.Derivative_LOW_ANY())
+    elif flag == 14:
+        for i in range(n):
+            MENUMODE(test2.Derivative_2nd())
+
+def maintest():
+    i = 0
+    while i == 0:
+        print("welcome to math game, click on an option")
+        print("Would you like to take a quiz press 1")
+        print("Would you like to try a specific number of question press 2")
+        print("Would you like to leave the program press 3")
+        MENU_CHOICE = int(input())
+        if MENU_CHOICE == 1:
+            main(5)
+        elif MENU_CHOICE == 2:
+            print("choose number of questions")
+            CHOICE = int(input())
+            if CHOICE < 1:
+                print("invalid input")
+            else:
+                main(CHOICE)
+        elif MENU_CHOICE == 3:
+            print("exiting program")
+            i = 1
+
     
-main()
-        
+maintest()
+
 # second degree questions
 #--factoring problem
 #
 # negative solutions for last few problem types
+# check for a better input answer system for integration, derivatives and second degree solvings
+# Make classes for things--look at dr bible github for examples
+# videos -Pygame Tutorial #5 - Projectiles and Introduction to For Loops in Python (Python Tutorial #5)
+# pygame_functions: Text Outputs and Inputs
+# Implement picking questions for menumode and make everything go back to Menumode
+# turn main and genquestion into one function
+# learn more about git
+
 
 
